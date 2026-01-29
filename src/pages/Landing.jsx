@@ -5,25 +5,15 @@ import { fetchSpaces } from '../features/spaces/spacesApi';
 import SpaceCard from '../features/spaces/SpaceCard';
 
 const Landing = () => {
-  const [spaces, setSpaces] = useState([]);
-
-  useEffect(() => {
-    fetchSpaces().then(setSpaces);
-  }, []);
-
   return (
-    <Layout>
-      <h1>Welcome to Spacer</h1>
-      <p>Find and book spaces easily.</p>
-      <div className="spaces-grid">
-        {spaces.map((space) => (
-          <Link key={space.id} to={`/spaces/${space.id}`}>
-            <SpaceCard space={space} />
-          </Link>
-        ))}
-      </div>
-    </Layout>
+    <div style={{ padding: "2rem", color: "white" }}>
+      <h1>Spacer Frontend Is Live 🚀</h1>
+      <p>If you can see this, routing works.</p>
+    </div>
   );
 };
 
 export default Landing;
+
+
+

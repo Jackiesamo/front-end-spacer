@@ -1,11 +1,13 @@
-import Navbar from './Navbar';
-import Footer from './Footer';
+import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 const Layout = ({ children }) => {
   return (
     <>
       <Navbar />
-      <main>{children}</main>
+      <main style={{ minHeight: "80vh" }}>
+        {children}
+      </main>
       <Footer />
     </>
   );
