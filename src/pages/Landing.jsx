@@ -9,34 +9,32 @@ export const Landing = () => {
       <section className="relative bg-gradient-to-r from-primary to-secondary text-white py-20 px-4">
         <div className="max-w-7xl mx-auto text-center">
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            Book Unique Spaces for Your Events
+            Find Your Perfect Workspace in Kenya
           </h1>
           <p className="text-xl md:text-2xl mb-8 opacity-90">
-            Connect with space owners and discover the perfect venue for your meeting, event, or activity
+            Book unique spaces for meetings, creative work, and celebrations. From coworking spaces to conference centers across Nairobi.
           </p>
-          <div className="flex justify-center gap-4 flex-wrap">
-            <Link to="/spaces">
-              <Button variant="outline" size="lg" className="bg-white text-primary hover:bg-gray-100">
-                Browse Spaces
-              </Button>
-            </Link>
-            <Link to="/register">
-              <Button variant="secondary" size="lg">
-                Get Started
-              </Button>
-            </Link>
-          </div>
-          <div className="flex justify-center gap-4 mt-6 flex-wrap">
-            <Link to="/spaces">
-              <Button variant="outline" size="md" className="bg-white text-primary hover:bg-gray-100">
-                I'm a Client
-              </Button>
-            </Link>
-            <Link to="/admin">
-              <Button variant="secondary" size="md">
-                I'm a Space Owner
-              </Button>
-            </Link>
+
+          <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-white/10 p-6 rounded-lg">
+              <h3 className="text-2xl font-semibold mb-2">I'm a Client</h3>
+              <p className="mb-4 opacity-90">Browse and book amazing spaces for your team, events, or creative projects</p>
+              <Link to="/spaces">
+                <Button variant="outline" size="md" className="bg-white text-primary hover:bg-gray-100">
+                  Browse Spaces
+                </Button>
+              </Link>
+            </div>
+
+            <div className="bg-white/10 p-6 rounded-lg">
+              <h3 className="text-2xl font-semibold mb-2">I'm a Space Owner</h3>
+              <p className="mb-4 opacity-90">List your spaces, manage bookings, and grow your business on our platform</p>
+              <Link to="/admin">
+                <Button variant="secondary" size="md">
+                  Admin Dashboard
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
