@@ -1,65 +1,82 @@
-import React from 'react'
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import Layout from './components/layout/Layout'
-import ProtectedRoute from './features/auth/ProtectedRoute'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-// Pages
-import Landing from './pages/Landing'
-import Login from './pages/Login'
-import Register from './pages/Register'
-import Spaces from './pages/Spaces'
-import SpaceDetails from './pages/SpaceDetails'
-import Booking from './pages/Booking'
-import Dashboard from './pages/Dashboard'
-import Admin from './pages/Admin'
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import HomePage from './pages/HomePage';
+import ClientDashboard from './pages/ClientDashboard';
+import AdminDashboard from './pages/AdminDashboard';
+import LoginModal from './components/LoginModal';
+import { useState } from 'react';
+
+// Protected Route Component
+const ProtectedRoute = ({ children, requiredRole }) => {
+  const { isAuthenticated, user } = useSelector(state => state.auth);
+  
+  if (!isAuthenticated) {
+    return <Navigate to="/" replace />;
+  }
+  
+  if (requiredRole && user?.role !== requiredRole) {
+    return <Navigate to="/" replace />;
+  }
+  
+  return children;
+};
 
 function App() {
-  const { isAuthenticated } = useSelector(state => state.auth)
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   return (
     <Router>
-      <Routes>
-        {/* Public Routes */}
-        <Route path="/" element={<Layout><Landing /></Layout>} />
-        <Route path="/login" element={!isAuthenticated ? <Layout><Login /></Layout> : <Navigate to="/" />} />
-        <Route path="/register" element={!isAuthenticated ? <Layout><Register /></Layout> : <Navigate to="/" />} />
-
-        {/* Space Routes */}
-        <Route path="/spaces" element={<Layout><Spaces /></Layout>} />
-        <Route path="/spaces/:id" element={<Layout><SpaceDetails /></Layout>} />
-
-        {/* Protected Routes */}
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Layout><Dashboard /></Layout>
-            </ProtectedRoute>
-          }
+      <div className="App">
+        <Navbar onLoginClick={() => setShowLoginModal(true)} />
+        
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route 
+            path="/client-dashboard" 
+            element={
+              <ProtectedRoute requiredRole="client">
+                <ClientDashboard />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/admin-dashboard" 
+            element={
+              <ProtectedRoute requiredRole="admin">
+                <AdminDashboard />
+              </ProtectedRoute>
+            } 
+          />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+        
+        <Footer />
+        
+        <LoginModal 
+          isOpen={showLoginModal} 
+          onClose={() => setShowLoginModal(false)} 
         />
-        <Route
-          path="/booking"
-          element={
-            <ProtectedRoute>
-              <Layout><Booking /></Layout>
-            </ProtectedRoute>
-          }
+        
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
         />
-        <Route
-          path="/admin"
-          element={
-            <ProtectedRoute requiredRole={"admin"}>
-              <Layout><Admin /></Layout>
-            </ProtectedRoute>
-          }
-        />
-
-        {/* 404 */}
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
+      </div>
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;
