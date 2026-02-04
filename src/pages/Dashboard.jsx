@@ -43,7 +43,7 @@ export const Dashboard = () => {
 
           <div className="bg-white p-6 rounded-lg shadow-md">
             <p className="text-gray-600 text-sm mb-2">Total Spent</p>
-            <p className="text-3xl font-bold text-warning">$0.00</p>
+            <p className="text-3xl font-bold text-warning">KES 0.00</p>
           </div>
         </div>
       )}
@@ -72,13 +72,13 @@ export const Dashboard = () => {
                     <td className="px-6 py-4 text-gray-600 text-sm">
                       {booking.startDate} - {booking.endDate}
                     </td>
-                    <td className="px-6 py-4 font-semibold text-gray-900">${booking.totalAmount}</td>
+                    <td className="px-6 py-4 font-semibold text-gray-900">KES {booking.totalAmount}</td>
                     <td className="px-6 py-4">
                       <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
                         booking.status === 'completed'
                           ? 'bg-green-100 text-success'
                           : booking.status === 'upcoming'
-                          ? 'bg-blue-100 text-primary'
+                          ? 'bg-green-100 text-primary'
                           : 'bg-gray-100 text-gray-700'
                       }`}>
                         {booking.status}

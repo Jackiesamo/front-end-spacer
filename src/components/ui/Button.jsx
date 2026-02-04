@@ -12,11 +12,11 @@ export const Button = ({
   const baseStyles = 'font-semibold rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2'
   
   const variants = {
-    primary: 'bg-primary text-white hover:bg-blue-600 focus:ring-primary',
+    primary: 'bg-primary text-white hover:bg-green-600 focus:ring-primary',
     secondary: 'bg-secondary text-white hover:bg-purple-600 focus:ring-secondary',
     success: 'bg-success text-white hover:bg-green-600 focus:ring-success',
     danger: 'bg-danger text-white hover:bg-red-600 focus:ring-danger',
-    outline: 'border-2 border-primary text-primary hover:bg-blue-50 focus:ring-primary'
+    outline: 'border-2 border-primary text-primary hover:bg-green-50 focus:ring-primary'
   }
 
   const sizes = {

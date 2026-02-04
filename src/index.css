@@ -4,8 +4,8 @@
 
 :root {
   /* Color variables matching tailwind.config.js */
-  --color-primary: #3B82F6;
-  --color-primary-hover: #2563EB;
+  --color-primary: #10B981;
+  --color-primary-hover: #059669;
   --color-secondary: #8B5CF6;
   --color-success: #10B981;
   --color-danger: #EF4444;

@@ -64,14 +64,14 @@ export const SpaceCard = ({ space, onViewDetails, onBook }) => {
         <div className="flex gap-2">
           <button
             onClick={onViewDetails}
-            className="flex-1 px-4 py-2 border border-primary text-primary rounded-lg hover:bg-blue-50 transition text-sm font-medium"
+            className="flex-1 px-4 py-2 border border-primary text-primary rounded-lg hover:bg-green-50 transition text-sm font-medium"
           >
             Details
           </button>
           <button
             onClick={onBook}
             disabled={!space.isAvailable}
-            className="flex-1 px-4 py-2 bg-primary text-white rounded-lg hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition text-sm font-medium"
+            className="flex-1 px-4 py-2 bg-primary text-white rounded-lg hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed transition text-sm font-medium"
           >
             Book Now
           </button>

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { Button, Loader } from '../components/ui'
 import { SpaceForm } from '../features/spaces/SpaceForm'
-import { ProtectedRoute } from '../features/auth/ProtectedRoute'
 
 export const Admin = () => {
   const { user } = useSelector(state => state.auth)
@@ -29,10 +28,9 @@ export const Admin = () => {
   }
 
   return (
-    <ProtectedRoute>
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        <h1 className="text-4xl font-bold text-gray-900 mb-2">Admin Dashboard</h1>
-        <p className="text-gray-600 mb-8">Manage your spaces and users</p>
+    <div className="max-w-7xl mx-auto px-4 py-12">
+      <h1 className="text-4xl font-bold text-gray-900 mb-2">Admin Dashboard</h1>
+      <p className="text-gray-600 mb-8">Manage your spaces and users</p>
 
         {/* Tabs */}
         <div className="flex gap-4 mb-8 border-b border-gray-200">
@@ -148,8 +146,7 @@ export const Admin = () => {
           </div>
         )}
       </div>
-    </ProtectedRoute>
-  )
+    )
 }
 
 export default Admin

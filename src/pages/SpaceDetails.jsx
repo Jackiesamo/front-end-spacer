@@ -12,6 +12,7 @@ export const SpaceDetails = () => {
   const [space, setSpace] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [showBookingForm, setShowBookingForm] = useState(false)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
   useEffect(() => {
     // Fetch space details
@@ -63,13 +64,70 @@ export const SpaceDetails = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Main Content */}
         <div className="lg:col-span-2">
-          {/* Images */}
+          {/* Images Gallery */}
           <div className="mb-8">
-            <div className="w-full h-96 bg-gray-200 rounded-lg overflow-hidden mb-4">
-              <div className="w-full h-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white text-2xl">
-                Space Image
-              </div>
+            {/* Main Image */}
+            <div className="w-full h-96 bg-gray-200 rounded-lg overflow-hidden mb-4 relative">
+              {space.images && space.images.length > 0 ? (
+                <>
+                  <img 
+                    src={space.images[currentImageIndex]} 
+                    alt={`${space.name} - Image ${currentImageIndex + 1}`}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.target.src = `https://via.placeholder.com/800x400?text=${space.name}+Image+${currentImageIndex+1}`
+                    }}
+                  />
+                  {space.images.length > 1 && (
+                    <>
+                      <button
+                        onClick={() => setCurrentImageIndex((prev) => (prev === 0 ? space.images.length - 1 : prev - 1))}
+                        className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition"
+                      >
+                        ←
+                      </button>
+                      <button
+                        onClick={() => setCurrentImageIndex((prev) => (prev === space.images.length - 1 ? 0 : prev + 1))}
+                        className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition"
+                      >
+                        →
+                      </button>
+                      <div className="absolute bottom-2 right-2 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full text-sm">
+                        {currentImageIndex + 1} / {space.images.length}
+                      </div>
+                    </>
+                  )}
+                </>
+              ) : (
+                <div className="w-full h-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white text-2xl">
+                  📸 No Images Available
+                </div>
+              )}
             </div>
+
+            {/* Thumbnail Gallery */}
+            {space.images && space.images.length > 1 && (
+              <div className="flex gap-2 overflow-x-auto pb-2">
+                {space.images.map((img, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setCurrentImageIndex(idx)}
+                    className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition ${
+                      idx === currentImageIndex ? 'border-primary' : 'border-gray-300 opacity-60 hover:opacity-100'
+                    }`}
+                  >
+                    <img 
+                      src={img} 
+                      alt={`Thumbnail ${idx + 1}`}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.target.src = `https://via.placeholder.com/80x80?text=${idx+1}`
+                      }}
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Details */}
