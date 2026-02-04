@@ -1,152 +1,105 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
-import { Button, Loader } from '../components/ui'
-import { SpaceForm } from '../features/spaces/SpaceForm'
 
 export const Admin = () => {
   const { user } = useSelector(state => state.auth)
-  const [activeTab, setActiveTab] = useState('spaces')
-  const [isLoading, setIsLoading] = useState(false)
-  const [spaces, setSpaces] = useState([])
-  const [users, setUsers] = useState([])
-  const [showAddForm, setShowAddForm] = useState(false)
-
-  useEffect(() => {
-    // Fetch admin data
-    setSpaces([])
-    setUsers([])
-  }, [])
-
-  const handleAddSpace = (formData) => {
-    setIsLoading(true)
-    setTimeout(() => {
-      const newSpace = { ...formData, id: Date.now() }
-      setSpaces([...spaces, newSpace])
-      setShowAddForm(false)
-      setIsLoading(false)
-    }, 1000)
-  }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12">
-      <h1 className="text-4xl font-bold text-gray-900 mb-2">Admin Dashboard</h1>
-      <p className="text-gray-600 mb-8">Manage your spaces and users</p>
+    <div className="max-w-5xl mx-auto px-4 py-12">
+      <h1 className="text-3xl font-bold mb-4">Spacer Admin Dashboard</h1>
+      <p className="text-gray-600 mb-8">The <strong>Spacer Admin Dashboard</strong> is the control center of the Spacer platform. It allows administrators to manage spaces, users, bookings, and system operations efficiently. This module is restricted to users with the <strong>Admin role</strong> only.</p>
 
-        {/* Tabs */}
-        <div className="flex gap-4 mb-8 border-b border-gray-200">
-          <button
-            onClick={() => setActiveTab('spaces')}
-            className={`px-4 py-3 font-medium border-b-2 transition ${
-              activeTab === 'spaces'
-                ? 'border-primary text-primary'
-                : 'border-transparent text-gray-600 hover:text-gray-900'
-            }`}
-          >
-            Spaces
-          </button>
-          <button
-            onClick={() => setActiveTab('users')}
-            className={`px-4 py-3 font-medium border-b-2 transition ${
-              activeTab === 'users'
-                ? 'border-primary text-primary'
-                : 'border-transparent text-gray-600 hover:text-gray-900'
-            }`}
-          >
-            Users
-          </button>
-        </div>
+      <section className="mb-8">
+        <h2 className="text-2xl font-semibold mb-2">Purpose of the Admin Dashboard</h2>
+        <ul className="list-disc ml-6 text-gray-700">
+          <li>Manage all spaces listed on the platform</li>
+          <li>Manage users and their roles</li>
+          <li>Monitor bookings and availability</li>
+          <li>Oversee simulated payments and invoicing</li>
+          <li>Maintain platform integrity and security</li>
+        </ul>
+      </section>
 
-        {/* Content */}
-        {activeTab === 'spaces' && (
-          <div>
-            {!showAddForm ? (
-              <>
-                <Button onClick={() => setShowAddForm(true)} className="mb-8">
-                  + Add New Space
-                </Button>
+      <section className="mb-8">
+        <h2 className="text-2xl font-semibold mb-2">Admin Roles & Access Control</h2>
+        <p className="text-gray-700 mb-2">Only authenticated users with the role <code>admin</code> can access this dashboard. Admins have full permissions across the platform, unlike clients who only interact with booking features.</p>
+      </section>
 
-                {spaces.length === 0 ? (
-                  <div className="bg-light rounded-lg p-12 text-center">
-                    <p className="text-gray-600 mb-4">No spaces added yet</p>
-                    <Button onClick={() => setShowAddForm(true)}>
-                      Add Your First Space
-                    </Button>
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {spaces.map(space => (
-                      <div key={space.id} className="bg-white rounded-lg shadow-md p-6">
-                        <h3 className="text-xl font-semibold text-gray-900 mb-2">{space.name}</h3>
-                        <p className="text-gray-600 mb-4">{space.location}</p>
-                        <div className="flex gap-2">
-                          <Button variant="outline" size="sm">Edit</Button>
-                          <Button variant="danger" size="sm">Delete</Button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </>
-            ) : (
-              <div className="bg-white rounded-lg shadow-md p-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">Add New Space</h2>
-                <SpaceForm
-                  onSubmit={handleAddSpace}
-                  isLoading={isLoading}
-                />
-                <button
-                  onClick={() => setShowAddForm(false)}
-                  className="mt-4 text-primary hover:underline"
-                >
-                  ← Back
-                </button>
-              </div>
-            )}
-          </div>
-        )}
+      <section className="mb-8">
+        <h2 className="text-2xl font-semibold mb-2">Core Features</h2>
 
-        {activeTab === 'users' && (
-          <div>
-            <div className="bg-white rounded-lg shadow-md overflow-hidden">
-              {users.length === 0 ? (
-                <div className="p-12 text-center text-gray-600">
-                  No users yet
-                </div>
-              ) : (
-                <table className="w-full">
-                  <thead className="bg-light">
-                    <tr>
-                      <th className="px-6 py-4 text-left font-semibold">Name</th>
-                      <th className="px-6 py-4 text-left font-semibold">Email</th>
-                      <th className="px-6 py-4 text-left font-semibold">Role</th>
-                      <th className="px-6 py-4 text-left font-semibold">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {users.map(user => (
-                      <tr key={user.id} className="border-t border-gray-200">
-                        <td className="px-6 py-4">{user.name}</td>
-                        <td className="px-6 py-4">{user.email}</td>
-                        <td className="px-6 py-4">
-                          <span className="px-3 py-1 bg-light rounded-full text-sm">
-                            {user.role}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4">
-                          <button className="text-primary hover:underline text-sm">
-                            Edit
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              )}
-            </div>
-          </div>
-        )}
-      </div>
-    )
+        <h3 className="text-xl font-medium mt-4">1. Space Management</h3>
+        <p className="text-gray-700">Admins can manage all spaces available on the platform.</p>
+        <ul className="list-disc ml-6 text-gray-700 mb-2">
+          <li>Add a new space</li>
+          <li>View all spaces</li>
+          <li>Edit space details</li>
+          <li>Enable or disable a space</li>
+        </ul>
+        <p className="text-gray-600 mb-4">Space information includes name, location, pricing, capacity, description, images, and status (`available`, `inactive`). Disabling a space prevents booking without deleting data.</p>
+
+        <h3 className="text-xl font-medium mt-4">2. User Management</h3>
+        <ul className="list-disc ml-6 text-gray-700 mb-4">
+          <li>View all users</li>
+          <li>Create new users</li>
+          <li>Assign roles (`admin`, `client`)</li>
+          <li>Enable or disable user accounts</li>
+        </ul>
+
+        <h3 className="text-xl font-medium mt-4">3. Booking Management</h3>
+        <p className="text-gray-700 mb-2">Admins have visibility into all bookings and can monitor statuses: <code>pending</code>, <code>confirmed</code>, <code>cancelled</code>.</p>
+
+        <h3 className="text-xl font-medium mt-4">4. Availability Control Logic</h3>
+        <p className="text-gray-700 mb-4">Availability is managed per booking time range to prevent double bookings while allowing different-date bookings.</p>
+
+        <h3 className="text-xl font-medium mt-4">5. Payment & Invoicing (Simulated)</h3>
+        <p className="text-gray-700 mb-2">Admins can view payment records and invoices generated per booking. Invoice data includes invoice ID, client details, space, duration, amount, and payment status. No real gateway is integrated for MVP.</p>
+
+        <h3 className="text-xl font-medium mt-4">6. Agreement Acceptance Tracking</h3>
+        <p className="text-gray-700">Admins can verify whether clients accepted the booking agreement before confirmation; acceptance is stored with a timestamp.</p>
+      </section>
+
+      <section className="mb-8">
+        <h2 className="text-2xl font-semibold mb-2">Dashboard Pages Structure</h2>
+        <ul className="list-disc ml-6 text-gray-700">
+          <li>Admin Login</li>
+          <li>Dashboard Overview (Stats summary)</li>
+          <li>Spaces Management</li>
+          <li>Users Management</li>
+          <li>Bookings Management</li>
+          <li>Payments & Invoices</li>
+          <li>Settings / Profile</li>
+        </ul>
+      </section>
+
+      <section className="mb-8">
+        <h2 className="text-2xl font-semibold mb-2">Non-Functional Requirements</h2>
+        <ul className="list-disc ml-6 text-gray-700 mb-4">
+          <li>Secure authentication using JWT</li>
+          <li>Role-based authorization</li>
+          <li>Responsive UI</li>
+          <li>Data persistence via database</li>
+          <li>Error handling and validation</li>
+        </ul>
+      </section>
+
+      <section className="mb-8">
+        <h2 className="text-2xl font-semibold mb-2">Tech Stack (Recommended)</h2>
+        <p className="text-gray-700">Frontend: React, Vite, Tailwind CSS, React Router. Backend: Node.js, Express, JWT, PostgreSQL or MongoDB.</p>
+      </section>
+
+      <section>
+        <h2 className="text-2xl font-semibold mb-2">Future Enhancements</h2>
+        <ul className="list-disc ml-6 text-gray-700">
+          <li>Real payment gateway integration (M-Pesa, Stripe)</li>
+          <li>Analytics and reports</li>
+          <li>Admin activity logs</li>
+          <li>Space owner role (separate from admin)</li>
+          <li>Downloadable PDF invoices</li>
+        </ul>
+      </section>
+    </div>
+  )
 }
 
 export default Admin
