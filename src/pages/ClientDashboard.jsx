@@ -20,7 +20,7 @@ const ClientDashboard = () => {
   const userBookings = useSelector(state => selectUserBookings(state, user?.id));
 
   const categories = ['all', 'coworking', 'meeting-room', 'event-space', 'private-office', 'studio'];
-  const locations = ['all', 'downtown', 'midtown', 'uptown', 'suburbs'];
+  const locations = ['all', 'cbd', 'westlands', 'kilimani', 'karen'];
   const priceRanges = ['all', '0-50', '51-100', '101-200', '200+'];
 
   const filteredSpaces = spaces.filter(space => {
@@ -141,7 +141,7 @@ const ClientDashboard = () => {
                   <option value="all">All Prices</option>
                   {priceRanges.slice(1).map(range => (
                     <option key={range} value={range}>
-                      ${range}/hour
+                      KSH {range}/hour
                     </option>
                   ))}
                 </select>
@@ -219,7 +219,7 @@ const ClientDashboard = () => {
                           </div>
                           <div className="flex items-center">
                             <FiDollarSign className="mr-2" />
-                            <span>${booking.totalPrice}</span>
+                              <span>KSH {booking.totalPrice}</span>
                           </div>
                         </div>
                         <div className="mt-4">
@@ -261,7 +261,7 @@ const ClientDashboard = () => {
                           </div>
                           <div className="flex items-center">
                             <FiDollarSign className="mr-2" />
-                            <span>${booking.totalPrice}</span>
+                              <span>KSH {booking.totalPrice}</span>
                           </div>
                         </div>
                         <div className="mt-4">

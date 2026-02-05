@@ -94,7 +94,7 @@ const AdminDashboard = () => {
             />
             <input
               type="number"
-              placeholder="Price per hour"
+              placeholder="Price (KSH)"
               value={formData.price}
               onChange={(e) => setFormData({...formData, price: parseFloat(e.target.value)})}
               className="w-full px-3 py-2 border rounded-lg"
@@ -288,7 +288,7 @@ const AdminDashboard = () => {
                   <FiDollarSign className="text-yellow-600 text-2xl mr-3" />
                   <div>
                     <p className="text-sm text-gray-600">Total Revenue</p>
-                    <p className="text-2xl font-bold">${totalRevenue}</p>
+                    <p className="text-2xl font-bold">KSH {totalRevenue}</p>
                   </div>
                 </div>
               </div>
@@ -309,7 +309,7 @@ const AdminDashboard = () => {
                           <p className="text-sm text-gray-600">{user?.name}</p>
                         </div>
                         <div className="text-right">
-                          <p className="font-medium">${booking.totalPrice}</p>
+                          <p className="font-medium">KSH {booking.totalPrice}</p>
                           <p className="text-sm text-gray-600">{new Date(booking.date).toLocaleDateString()}</p>
                         </div>
                       </div>
@@ -329,7 +329,7 @@ const AdminDashboard = () => {
                       </div>
                       <div className="text-right">
                         <p className="font-medium">{space.bookingCount} bookings</p>
-                        <p className="text-sm text-gray-600">${space.price}/hr</p>
+                        <p className="text-sm text-gray-600">KSH {space.price}/{space.priceUnit}</p>
                       </div>
                     </div>
                   ))}
@@ -371,7 +371,7 @@ const AdminDashboard = () => {
                       <td className="px-6 py-4 whitespace-nowrap text-gray-600 capitalize">
                         {space.category.replace('-', ' ')}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-gray-600">${space.price}/hr</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-gray-600">KSH {space.price}/{space.priceUnit}</td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <button
                           onClick={() => {
@@ -431,7 +431,7 @@ const AdminDashboard = () => {
                         <td className="px-6 py-4 whitespace-nowrap text-gray-600">
                           {booking.startTime} - {booking.endTime}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-gray-600">${booking.totalPrice}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-gray-600">KSH {booking.totalPrice}</td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <select
                             value={booking.status}
@@ -510,7 +510,7 @@ const AdminDashboard = () => {
                         </select>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-gray-600">{user.totalBookings || 0}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-gray-600">${user.totalSpent || 0}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-gray-600">KSH {user.totalSpent || 0}</td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <button
                           onClick={() => {

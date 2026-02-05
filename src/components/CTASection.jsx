@@ -1,6 +1,8 @@
 import { FiArrowRight } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 
 const CTASection = ({ onGetStartedClick }) => {
+  const navigate = useNavigate();
   return (
     <section className="bg-gradient-to-r from-purple-600 to-blue-600 text-white py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -17,7 +19,7 @@ const CTASection = ({ onGetStartedClick }) => {
           >
             Browse as Client <FiArrowRight className="ml-2" />
           </button>
-          <button onClick={() => window.location='/list-space'} className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-gray-900">
+          <button onClick={() => navigate('/admin-dashboard')} className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-gray-900">
             List Your Space
           </button>
         </div>
